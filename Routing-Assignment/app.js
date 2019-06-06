@@ -1,39 +1,35 @@
 const express = require('express');
 const app = express();
 
+// '/' => 'Hi there!'
 app.get('/', function(req, res) {
-	res.send('Hi ther, welcome to my assignment!');
+	res.send('Hi there!');
+	console.log('request to /');
 });
 
-app.get('/speak/:animal', function(req, res) {
-	let animal = req.params.animal;
-	let sound = 'its sound';
-	if (animal == 'pig') {
-		sound = 'Oink';
-	} else if (animal == 'dog') {
-		sound = 'Woof Woof';
-	} else if (animal == 'cow') {
-		sound = 'Moo';
-	} else if (animal == 'cat') {
-		sound = 'Meow';
-	} else if (animal == 'snake') {
-		sound = 'sssssss';
-	}
-	res.send('The ' + animal + ' says ' + sound + '!');
+// '/bye' => 'Goodbye!'
+app.get('/bye', function(req, res) {
+	res.send('Goodbye!');
+	console.log('request to /bye');
 });
 
-app.get('/repeat/:word/:number', function(req, res) {
-	let wordToSay = req.params.word;
-	let timeToSay = parseInt(req.params.number);
-	let newWord = wordToSay;
-	for (x = 1; x < timeToSay; x++) {
-		newWord += ' ' + wordToSay;
-	}
-	res.send(newWord);
+//'/dog' => 'Meow!'
+app.get('/dog', function(req, res) {
+	res.send('Meow!');
+	console.log('request to /dog');
 });
 
+//
+app.get('/r/:subredditName', function(req, res) {
+	let subreddit = req.params.subredditName;
+	res.send('Welcome to the ' + subreddit + ' subreddit');
+	console.log('request to /r/ ' + subreddit);
+});
+
+// a star or catch all for routes not specified above
 app.get('*', function(req, res) {
-	res.send('Sorry, page not found.');
+	res.send('You are a star!');
+	res.send('404 page not found!');
 });
 
 // tell express to listen for request
